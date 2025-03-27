@@ -64,12 +64,19 @@ export function LandingView({ onStart, onContinue }: LandingViewProps) {
           We work with the best banks and financial institutions in India
         </p>
         <div className="grid grid-cols-3 md:grid-cols-6 gap-4 justify-items-center">
-          {[...Array(6)].map((_, i) => (
-            <div key={i} className="h-8 w-20">
+          {[
+            { id: "hdfc", name: "HDFC Bank", logo: "/bank-logos/hdfc.svg" },
+            { id: "kotak", name: "Kotak Mahindra", logo: "/bank-logos/kotak.svg" },
+            { id: "piramal", name: "Piramal Finance", logo: "/bank-logos/piramal.svg" },
+            { id: "sbi", name: "SBI", logo: "/bank-logos/sbi.svg" },
+            { id: "union", name: "Union Bank", logo: "/bank-logos/union.svg" },
+            { id: "hdfc", name: "HDFC Bank", logo: "/bank-logos/hdfc.svg" } // Repeating first bank to fill the grid
+          ].map((bank) => (
+            <div key={bank.id} className="h-8 w-20">
               <img
-                src={`/placeholder.svg?height=32&width=80&text=Bank ${i + 1}`}
-                alt={`Bank ${i + 1}`}
-                className="h-full w-full object-contain grayscale opacity-70"
+                src={bank.logo}
+                alt={bank.name}
+                className="h-full w-full object-contain"
               />
             </div>
           ))}

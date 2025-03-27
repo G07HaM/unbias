@@ -17,7 +17,26 @@ interface StepIndicatorProps {
 
 export function StepIndicator({ steps, currentStep, onStepClick }: StepIndicatorProps) {
   return (
-    <div className="space-y-5 md:space-y-8">
+    <div className="relative space-y-8 md:space-y-12">
+      {steps.map((_, index) => {
+        if (index === steps.length - 1) return null;
+        const isCompleted = index < currentStep;
+        return (
+          <div
+            key={`line-${index}`}
+            className="absolute left-[11px] w-[1px] animate-fadeIn"
+            style={{
+              top: `calc(${(index * 100) / (steps.length - 1)}% + 3rem)`,
+              height: `calc(${100 / (steps.length - 1)}% - 4rem)`,
+              background: isCompleted
+                ? 'linear-gradient(180deg, #10b981 0%, rgba(16, 185, 129, 0.9) 100%)'
+                : 'linear-gradient(180deg, rgba(16, 185, 129, 0.2) 0%, rgba(16, 185, 129, 0.05) 100%)',
+              boxShadow: isCompleted ? '0 0 8px rgba(16, 185, 129, 0.3)' : 'none',
+              transition: 'all 0.3s ease-in-out'
+            }}
+          />
+        );
+      })}
       {steps.map((step, index) => {
         const isCompleted = index < currentStep
         const isCurrent = index === currentStep
@@ -38,11 +57,11 @@ export function StepIndicator({ steps, currentStep, onStepClick }: StepIndicator
               ) : (
                 <div
                   className={cn(
-                    "flex h-4 md:h-5 w-4 md:w-5 items-center justify-center rounded-full border",
-                    isCurrent ? "border-white bg-emerald-700" : "border-emerald-300/50",
+                    "flex h-5 md:h-6 w-5 md:w-6 items-center justify-center rounded-full border-2 relative shadow-lg",
+                    isCurrent ? "border-white bg-emerald-700 after:absolute after:inset-0 after:rounded-full after:border-2 after:border-white/50 after:animate-pulse after:shadow-[0_0_15px_rgba(255,255,255,0.3)]" : "border-emerald-300/50",
                   )}
                 >
-                  {isCurrent && <div className="h-1.5 md:h-2 w-1.5 md:w-2 rounded-full bg-white" />}
+                  {isCurrent && <div className="h-2 md:h-2.5 w-2 md:w-2.5 rounded-full bg-white shadow-[0_0_10px_rgba(255,255,255,0.5)]" />}
                 </div>
               )}
             </div>

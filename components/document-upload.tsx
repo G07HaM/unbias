@@ -134,6 +134,7 @@ export function DocumentUpload({ formData, bankId, onBack }: DocumentUploadProps
   }
 
   const handleSubmit = () => {
+
     setIsSubmitting(true)
     // Simulate submission process
     setTimeout(() => {
@@ -290,7 +291,7 @@ export function DocumentUpload({ formData, bankId, onBack }: DocumentUploadProps
             <div className="pt-6 flex flex-col space-y-3">
               <Button
                 onClick={handleSubmit}
-                disabled={!allRequiredUploaded || isSubmitting}
+                disabled={isSubmitting}
                 className="w-full h-12 bg-emerald-700 hover:bg-emerald-800 text-white rounded-[4px]"
               >
                 {isSubmitting ? "Submitting..." : "Submit Application"}

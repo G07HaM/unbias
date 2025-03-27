@@ -5,7 +5,8 @@ import type React from "react"
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
-import { ChevronLeft, CheckCircle2, Clock, AlertCircle, FileText, Download, Calendar } from "lucide-react"
+import { ChevronLeft, CheckCircle2, Clock, AlertCircle, FileText, Download, Calendar, Mail, Phone } from "lucide-react"
+import { StepIndicator } from "./step-indicator-new"
 
 interface ApplicationTrackingProps {
   bankId: string
@@ -14,6 +15,14 @@ interface ApplicationTrackingProps {
 
 type ApplicationStatus = "pending" | "in-progress" | "completed" | "rejected"
 
+interface TeamMember {
+  name: string
+  role: string
+  email: string
+  phone: string
+  avatar?: string
+}
+
 interface ApplicationStep {
   id: string
   title: string
@@ -21,6 +30,7 @@ interface ApplicationStep {
   status: ApplicationStatus
   date?: string
   eta?: string
+  teamMember?: TeamMember
   actions?: Array<{
     label: string
     icon: React.ReactNode
@@ -63,13 +73,22 @@ export function ApplicationTracking({ bankId, onBack }: ApplicationTrackingProps
   const bankName = getBankName(bankId)
 
   // Define application steps
-  const applicationSteps: ApplicationStep[] = [
+  // Mock team member data - in a real app, this would come from an API
+const teamMember: TeamMember = {
+  name: "Sarah Johnson",
+  role: "Loan Officer",
+  email: "sarah.johnson@unbiasbank.com",
+  phone: "(555) 123-4567",
+}
+
+const applicationSteps: ApplicationStep[] = [
     {
       id: "submission",
       title: "Application Submitted",
       description: `Your application has been received by ${bankName} and is being processed.`,
       status: "completed",
       date: new Date().toLocaleDateString(),
+      teamMember,
     },
     {
       id: "verification",
@@ -174,16 +193,31 @@ export function ApplicationTracking({ bankId, onBack }: ApplicationTrackingProps
               <p className="text-gray-500 mt-2">Application ID: {applicationId}</p>
             </div>
 
-            <Card className="p-4 rounded-[4px] bg-emerald-50 border-emerald-200 mb-8">
+            {/* Team Member Card */}
+            <Card className="p-4 rounded-[4px] bg-white border-gray-200 mb-8">
               <div className="flex items-start">
-                <div className="mr-3 mt-1">
-                  <CheckCircle2 className="h-5 w-5 text-emerald-600" />
+                <div className="flex-shrink-0 mr-4">
+                  <div className="h-12 w-12 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 font-semibold text-lg">
+                    {teamMember.name.split(' ').map(n => n[0]).join('')}
+                  </div>
                 </div>
-                <div>
-                  <h3 className="font-semibold text-emerald-800">Application Successfully Submitted</h3>
-                  <p className="text-sm text-emerald-700">
-                    Your loan application with {bankName} is now being processed. You can track the status here.
-                  </p>
+                <div className="flex-1">
+                  <h3 className="font-semibold text-gray-900">{teamMember.name}</h3>
+                  <p className="text-sm text-gray-600">{teamMember.role}</p>
+                  <div className="mt-3 space-y-2">
+                    <div className="flex items-center text-sm text-gray-600">
+                      <Mail className="h-4 w-4 mr-2" />
+                      <a href={`mailto:${teamMember.email}`} className="text-emerald-700 hover:text-emerald-800">
+                        {teamMember.email}
+                      </a>
+                    </div>
+                    <div className="flex items-center text-sm text-gray-600">
+                      <Phone className="h-4 w-4 mr-2" />
+                      <a href={`tel:${teamMember.phone}`} className="text-emerald-700 hover:text-emerald-800">
+                        {teamMember.phone}
+                      </a>
+                    </div>
+                  </div>
                 </div>
               </div>
             </Card>
