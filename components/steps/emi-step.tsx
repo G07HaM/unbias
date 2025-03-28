@@ -29,18 +29,31 @@ export function EMIStep({ value, onChange, onNext, onBack }: EMIStepProps) {
           value={value}
           onChange={(e) => onChange(e.target.value)}
           className="rounded-[4px] h-12"
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              e.preventDefault();
+              onNext();
+            }
+          }}
         />
       </div>
 
-      <div className="pt-6 flex flex-col space-y-3 max-w-md mx-auto">
-        <Button onClick={onNext} className="w-full h-12 bg-emerald-700 hover:bg-emerald-800 text-white rounded-[4px]">
-          Continue
+      <div className="pt-6 flex flex-col space-y-4 max-w-md mx-auto">
+        <Button 
+          onClick={onNext} 
+          className="bg-emerald-700 hover:bg-emerald-800 text-white rounded-[4px] h-12"
+        >
+          Get Offers
         </Button>
-
-        <button onClick={onBack} className="flex items-center justify-center text-gray-600 hover:text-gray-900">
+        
+        <Button 
+          onClick={onBack} 
+          variant="outline" 
+          className="flex items-center justify-center border-2 border-gray-300 hover:bg-gray-100 hover:border-gray-400 text-gray-700 font-medium rounded-[4px] h-12"
+        >
           <ChevronLeft className="h-4 w-4 mr-1" />
           Back
-        </button>
+        </Button>
       </div>
     </div>
   )

@@ -2,9 +2,11 @@
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
+import { AuthForm } from "./auth-form"
 import { Card } from "@/components/ui/card"
 import { ChevronLeft } from "lucide-react"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Dialog, DialogContent } from "@/components/ui/dialog"
 import type { FormData } from "./borrower-application-form"
 import { DocumentUpload } from "./document-upload"
 
@@ -64,43 +66,58 @@ const banks = [
 export function LoanOffers({ formData }: LoanOffersProps) {
   const [tenure, setTenure] = useState("25")
   const [selectedBank, setSelectedBank] = useState<string | null>(null)
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+
+  const [showAuthDialog, setShowAuthDialog] = useState(!isAuthenticated)
 
   if (selectedBank) {
     return <DocumentUpload formData={formData} bankId={selectedBank} onBack={() => setSelectedBank(null)} />
   }
 
   return (
-    <div className="flex flex-col min-h-screen">
-      {/* Header */}
-      <header className="border-b">
-        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <div className="flex items-center">
-            <Button variant="ghost" className="mr-2 p-2">
-              <ChevronLeft className="h-5 w-5" />
-            </Button>
-            <h1 className="text-xl font-semibold">Your Offers</h1>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="text-sm font-medium">Pick Tenure:</span>
-            <Select value={tenure} onValueChange={setTenure}>
-              <SelectTrigger className="w-32 rounded-[4px]">
-                <SelectValue placeholder="Tenure" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="10">10 years</SelectItem>
-                <SelectItem value="15">15 years</SelectItem>
-                <SelectItem value="20">20 years</SelectItem>
-                <SelectItem value="25">25 years</SelectItem>
-                <SelectItem value="30">30 years</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-        </div>
-      </header>
+    <>
+      <Dialog open={showAuthDialog} onOpenChange={setShowAuthDialog}>
+        <DialogContent className="sm:max-w-md">
+          <AuthForm
+            onAuthenticated={() => {
+              setIsAuthenticated(true);
+              setShowAuthDialog(false);
+            }}
+          />
+        </DialogContent>
+      </Dialog>
 
-      {/* Main content */}
-      <div className="flex-1">
-        <div className="container mx-auto px-4 py-8">
+      <div className="flex flex-col min-h-screen">
+        {/* Header */}
+        <header className="border-b">
+          <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div className="flex items-center">
+              <Button variant="ghost" className="mr-2 p-2">
+                <ChevronLeft className="h-5 w-5" />
+              </Button>
+              <h1 className="text-xl font-semibold">Your Offers</h1>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-sm font-medium">Pick Tenure:</span>
+              <Select value={tenure} onValueChange={setTenure}>
+                <SelectTrigger className="w-32 rounded-[4px]">
+                  <SelectValue placeholder="Tenure" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="10">10 years</SelectItem>
+                  <SelectItem value="15">15 years</SelectItem>
+                  <SelectItem value="20">20 years</SelectItem>
+                  <SelectItem value="25">25 years</SelectItem>
+                  <SelectItem value="30">30 years</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+        </header>
+
+        {/* Main content */}
+        <div className="flex-1">
+          <div className="container mx-auto px-4 py-8">
           <div className="grid grid-cols-1 gap-4">
             {banks.map((bank) => (
               <Card key={bank.id} className="p-4 rounded-[4px] border-gray-200 hover:border-gray-300 transition-colors">
@@ -150,16 +167,17 @@ export function LoanOffers({ formData }: LoanOffersProps) {
               </Button>
             </Card>
           </div>
+          </div>
         </div>
-      </div>
 
-      {/* Footer */}
-      <footer className="border-t py-6">
-        <div className="container mx-auto px-4 text-center">
-          <p className="text-sm text-gray-500">Powered by Unbias Lending</p>
-        </div>
-      </footer>
-    </div>
+        {/* Footer */}
+        <footer className="border-t py-6">
+          <div className="container mx-auto px-4 text-center">
+            <p className="text-sm text-gray-500">Powered by Unbias Lending</p>
+          </div>
+        </footer>
+      </div>
+    </>
   )
 }
 

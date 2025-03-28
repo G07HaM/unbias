@@ -26,7 +26,17 @@ export function AgeStep({ value, onChange, onNext, onBack }: AgeStepProps) {
         <h2 className="text-2xl md:text-3xl font-bold text-gray-900">How old are you?</h2>
       </div>
 
-      <RadioGroup value={value} onValueChange={onChange} className="space-y-3">
+      <RadioGroup 
+        value={value} 
+        onValueChange={(newValue) => {
+          onChange(newValue);
+          // Automatically proceed to next step when an option is selected
+          if (newValue) {
+            onNext();
+          }
+        }} 
+        className="space-y-3"
+      >
         {options.map((option) => (
           <Card
             key={option.value}
@@ -43,14 +53,6 @@ export function AgeStep({ value, onChange, onNext, onBack }: AgeStepProps) {
       </RadioGroup>
 
       <div className="pt-6 flex flex-col space-y-3">
-        <Button
-          onClick={onNext}
-          disabled={!value}
-          className="w-full h-12 bg-emerald-700 hover:bg-emerald-800 text-white rounded-[4px]"
-        >
-          Continue
-        </Button>
-
         <button onClick={onBack} className="flex items-center justify-center text-gray-600 hover:text-gray-900">
           <ChevronLeft className="h-4 w-4 mr-1" />
           Back

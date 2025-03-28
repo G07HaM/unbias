@@ -71,7 +71,15 @@ export function EmploymentStep({
         <h2 className="text-2xl md:text-3xl font-bold text-gray-900">How are you employed?</h2>
       </div>
 
-      <RadioGroup value={employmentType} onValueChange={onEmploymentTypeChange} className="space-y-3">
+      <RadioGroup 
+        value={employmentType} 
+        onValueChange={(newValue) => {
+          onEmploymentTypeChange(newValue);
+          // Don't automatically proceed after selecting employment type
+          // User needs to select income first
+        }} 
+        className="space-y-3"
+      >
         {employmentOptions.map((option) => (
           <Card
             key={option.value}
@@ -96,7 +104,17 @@ export function EmploymentStep({
             {incomeSubtitle && <p className="text-gray-500">{incomeSubtitle}</p>}
           </div>
 
-          <RadioGroup value={income} onValueChange={onIncomeChange} className="space-y-3">
+          <RadioGroup 
+            value={income} 
+            onValueChange={(newValue) => {
+              onIncomeChange(newValue);
+              // Automatically proceed to next step when income is selected
+              if (newValue && employmentType) {
+                onNext();
+              }
+            }} 
+            className="space-y-3"
+          >
             {incomeOptions.map((option) => (
               <Card
                 key={option.value}
@@ -117,14 +135,6 @@ export function EmploymentStep({
       )}
 
       <div className="pt-6 flex flex-col space-y-3">
-        <Button
-          onClick={onNext}
-          disabled={!employmentType || !income}
-          className="w-full h-12 bg-emerald-700 hover:bg-emerald-800 text-white rounded-[4px]"
-        >
-          Continue
-        </Button>
-
         <button onClick={onBack} className="flex items-center justify-center text-gray-600 hover:text-gray-900">
           <ChevronLeft className="h-4 w-4 mr-1" />
           Back
