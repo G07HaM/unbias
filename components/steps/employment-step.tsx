@@ -135,10 +135,14 @@ export function EmploymentStep({
       )}
 
       <div className="pt-6 flex flex-col space-y-3">
-        <button onClick={onBack} className="flex items-center justify-center text-gray-600 hover:text-gray-900">
+        <Button 
+          onClick={onBack} 
+          variant="outline" 
+          className="flex items-center justify-center border-2 border-gray-300 hover:bg-gray-100 hover:border-gray-400 text-gray-700 font-medium rounded-[4px] h-12 w-full sm:w-auto"
+        >
           <ChevronLeft className="h-4 w-4 mr-1" />
           Back
-        </button>
+        </Button>
       </div>
     </div>
   )

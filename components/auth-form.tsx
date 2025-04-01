@@ -136,13 +136,63 @@ export function AuthForm({ onAuthenticated }: AuthFormProps) {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Mobile Number</FormLabel>
-                <FormControl>
-                  <Input placeholder="Enter 10-digit number" {...field} />
-                </FormControl>
+                <div className="flex space-x-2">
+                  <FormControl>
+                    <Input placeholder="Enter 10-digit number" {...field} />
+                  </FormControl>
+                  <Button 
+                    type="button" 
+                    className="bg-emerald-700 hover:bg-emerald-800"
+                    onClick={() => {
+                      const mobileValue = form.getValues().mobile;
+                      if (/^[0-9]{10}$/.test(mobileValue)) {
+                        setMobileNumber(mobileValue);
+                        // Here you would typically make an API call to send OTP
+                        alert(`OTP sent to ${mobileValue}`);
+                        // Show OTP field but don't navigate to OTP screen yet
+                        form.clearErrors('mobile');
+                      } else {
+                        form.setError('mobile', {
+                          type: 'manual',
+                          message: 'Please enter a valid 10-digit mobile number.',
+                        });
+                      }
+                    }}
+                  >
+                    Get OTP
+                  </Button>
+                </div>
                 <FormMessage />
               </FormItem>
             )}
           />
+
+          {form.getValues().mobile && /^[0-9]{10}$/.test(form.getValues().mobile) && (
+            <FormField
+              control={otpForm.control}
+              name="otp"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Enter OTP</FormLabel>
+                  <FormControl>
+                    <InputOTP
+                      maxLength={6}
+                      value={field.value}
+                      onChange={field.onChange}
+                      render={({ slots }) => (
+                        <InputOTPGroup className="gap-2">
+                          {slots.map((slot, index) => (
+                            <InputOTPSlot key={index} index={index} />
+                          ))}
+                        </InputOTPGroup>
+                      )}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          )}
 
           <Button type="submit" className="w-full bg-emerald-700 hover:bg-emerald-800">
             Continue

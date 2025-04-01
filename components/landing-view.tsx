@@ -65,12 +65,12 @@ export function LandingView({ onStart, onContinue }: LandingViewProps) {
         </p>
         <div className="grid grid-cols-3 md:grid-cols-6 gap-4 justify-items-center">
           {[
-            { id: "hdfc", name: "HDFC Bank", logo: "/bank-logos/hdfc.svg" },
-            { id: "kotak", name: "Kotak Mahindra", logo: "/bank-logos/kotak.svg" },
-            { id: "piramal", name: "Piramal Finance", logo: "/bank-logos/piramal.svg" },
-            { id: "sbi", name: "SBI", logo: "/bank-logos/sbi.svg" },
-            { id: "union", name: "Union Bank", logo: "/bank-logos/union.svg" },
-            { id: "hdfc", name: "HDFC Bank", logo: "/bank-logos/hdfc.svg" } // Repeating first bank to fill the grid
+            { id: "hdfc", name: "HDFC Bank", logo: "/bank-logos/hdfc.png" },
+            { id: "icici", name: "ICICI Bank", logo: "/bank-logos/icici.png" },
+            { id: "idfc", name: "IDFC First Bank", logo: "/bank-logos/idfc.png" },
+            { id: "indusind", name: "IndusInd Bank", logo: "/bank-logos/indusind.png" },
+            { id: "kotak", name: "Kotak Mahindra", logo: "/bank-logos/kotak.png" },
+            { id: "sbi", name: "SBI", logo: "/bank-logos/sbi.png" }
           ].map((bank) => (
             <div key={bank.id} className="h-8 w-20">
               <img

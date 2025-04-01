@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="250" viewBox="0 0 1000 250">
+  <ellipse cx="150" cy="125" rx="120" ry="100" fill="#b3271d"/>
+  <ellipse cx="170" cy="125" rx="100" ry="80" fill="#f47920"/>
+  <path d="M120 80 Q140 110 120 170" stroke="white" stroke-width="20" fill="none"/>
+  <circle cx="120" cy="60" r="15" fill="white"/>
+  <path d="M350 60 H380 V190 H350 Z M400 60 H430 V190 H400 Z M450 60 H480 V190 H450 Z M500 60 H530 V190 H500 Z" fill="#00558c"/>
+  <path d="M580 60 H700 L720 100 L700 140 H580 Z" fill="#00558c"/>
+  <path d="M580 80 H680 L690 100 L680 120 H580 Z" fill="white"/>
+  <path d="M750 60 H870 Q900 60 900 90 V160 Q900 190 870 190 H750 Z" fill="#00558c"/>
+  <path d="M770 80 H850 Q870 80 870 100 V150 Q870 170 850 170 H770 Z" fill="white"/>
+  <path d="M770 100 H850 Q860 100 860 110 V140 Q860 150 850 150 H770 Z" fill="#00558c"/>
+</svg>

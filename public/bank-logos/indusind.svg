@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="250" viewBox="0 0 1000 250">
+  <rect x="0" y="0" width="1000" height="250" fill="#a51c30"/>
+  <path d="M750 60 C730 80 710 100 710 130 C710 160 730 180 750 200 C770 180 790 160 790 130 C790 100 770 80 750 60 Z" stroke="white" stroke-width="5" fill="none"/>
+  <path d="M750 90 C740 100 730 110 730 130 C730 150 740 160 750 170 C760 160 770 150 770 130 C770 110 760 100 750 90 Z" stroke="white" stroke-width="5" fill="none"/>
+  <circle cx="750" cy="110" r="5" fill="white"/>
+  <path d="M350 200 L380 60 L410 60 L440 200 L410 200 L405 180 L385 180 L380 200 Z" fill="white"/>
+  <path d="M390 160 L400 160 L395 120 Z" fill="#a51c30"/>
+  <path d="M450 60 H480 V170 H530 V200 H450 Z" fill="white"/>
+  <path d="M540 60 H620 Q640 60 640 80 V100 Q640 120 620 120 H600 L640 200 H610 L570 120 H570 V200 H540 Z" fill="white"/>
+  <path d="M570 90 H600 Q610 90 610 100 V110 Q610 120 600 120 H570 Z" fill="#a51c30"/>
+  <path d="M650 60 H680 V170 H730 V200 H650 Z" fill="white"/>
+  <path d="M740 60 H770 V200 H740 Z" fill="white"/>
+  <path d="M780 60 H810 V170 H860 V200 H780 Z" fill="white"/>
+  <path d="M870 60 H950 Q970 60 970 80 V100 Q970 120 950 120 H930 L970 200 H940 L900 120 H900 V200 H870 Z" fill="white"/>
+  <path d="M900 90 H930 Q940 90 940 100 V110 Q940 120 930 120 H900 Z" fill="#a51c30"/>
+</svg>

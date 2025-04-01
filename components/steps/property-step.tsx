@@ -28,15 +28,30 @@ export function PropertyStep({ title, options, value, onChange, onNext, onBack, 
   const [showOtherInput, setShowOtherInput] = useState(false);
 
   useEffect(() => {
-    // Show the input field if "other" is selected
-    setShowOtherInput(value === "other");
+    // Show the input field if "other" is selected or if value has "other:" prefix
+    const isOtherSelected = value === "other" || value.startsWith("other:");
+    setShowOtherInput(isOtherSelected);
+    
+    // Extract the city value from the "other:" prefix if it exists
+    if (value.startsWith("other:")) {
+      const extractedCity = value.substring(6); // "other:".length = 6
+      setOtherCityValue(extractedCity);
+    } else if (value === "other") {
+      // Keep the existing otherCityValue when just the "other" option is selected
+      // This prevents clearing the input when the radio is clicked again
+    } else {
+      // Reset the other city value when a different option is selected
+      setOtherCityValue("");
+    }
   }, [value]);
 
   const handleOtherCityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const cityValue = e.target.value;
     setOtherCityValue(cityValue);
-    // Update the form with the city value prefixed with "other:" to distinguish it
-    onChange(`other:${cityValue}`);
+    
+    // Always update the form value with the prefix, even if empty
+    // This ensures the "other" option stays selected while typing
+    onChange(cityValue ? `other:${cityValue}` : "other");
   };
 
   return (
